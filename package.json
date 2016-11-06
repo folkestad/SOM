@@ -1,0 +1,8 @@
+{
+    "name": "your-nwjs-app",
+    "main": "index.html",
+    "node-remote": "localhost",
+    "scripts": {
+        "start": "nw"
+    }
+}
