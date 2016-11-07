@@ -3,7 +3,7 @@ var normalizer = require("./normalize.js");
 
 class Plot {
     constructor(nodes, cities) {
-        this.svg = d3.select("body").append("svg").attr("width", 1410).attr("height", 720)
+        this.svg = d3.select("body").append("svg").attr("width", 1410).attr("height", 710)
         .style("border", "1px solid grey");
         this.width = this.svg.attr("width");
         this.height = this.svg.attr("height");
