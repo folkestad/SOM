@@ -3,7 +3,8 @@ var normalizer = require("./normalize.js");
 
 class Plot {
     constructor(nodes, cities) {
-        this.svg = d3.select("body").append("svg").attr("width", 1000).attr("height", 700);
+        this.svg = d3.select("body").append("svg").attr("width", 1410).attr("height", 720)
+        .style("border", "1px solid grey");
         this.width = this.svg.attr("width");
         this.height = this.svg.attr("height");
 
@@ -24,8 +25,9 @@ class Plot {
             .attr("id", "city"+pos)
             .attr("cx", parseInt(this.cities[pos][0]))
             .attr("cy", parseInt(this.cities[pos][1]))
-            .attr("r", 7)
-            .style("fill", "red");
+            .attr("r", 10)
+            .style("fill", "red")
+            .style("stroke", "black");
             
             //console.log(parseInt(this.correct_pos_x(parseFloat(this.cities[pos][0]))));
             //console.log(parseInt(this.correct_pos_y(parseFloat(this.cities[pos][1]))));
@@ -88,8 +90,9 @@ class Plot {
             this.svg.select("#city"+pos)
             .attr("cx", parseInt(cities[pos][0]))
             .attr("cy", parseInt(cities[pos][1]))
-            .attr("r", 5)
-            .style("fill", "red");
+            .attr("r", 10)
+            .style("fill", "red")
+            .style("border", "1px solod black");
             
             //console.log(parseInt(this.correct_pos_x(parseFloat(this.cities[pos][0]))));
             //console.log(parseInt(this.correct_pos_y(parseFloat(this.cities[pos][1]))));
@@ -127,8 +130,8 @@ class Plot {
             if (nodes[i][1] > y_max) { y_max = nodes[i][1] };
             if (nodes[i][1] < y_min) { y_min = nodes[i][1] };
         }
-        var scale_x = d3.scaleLinear().domain([x_min, x_max]).range([25, width-25]);
-        var scale_y = d3.scaleLinear().domain([y_min, y_max]).range([25, height-25]);
+        var scale_x = d3.scaleLinear().domain([x_min, x_max]).range([50, width-50]);
+        var scale_y = d3.scaleLinear().domain([y_min, y_max]).range([50, height-50]);
         for (var i = 0; i < nodes.length; i++) {
             scaled_values.push([scale_x(nodes[i][0]),scale_y(nodes[i][1])]);
         }

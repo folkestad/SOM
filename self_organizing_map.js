@@ -44,7 +44,9 @@ class Self_Organizing_Map {
                 this.update_neurons(winning_neuron_pos, input[element_pos]);
             }
             this.current_epoch += 1;
-            
+            this.adjust_radius();
+            this.adjust_learning_rate();
+            // plotter.update(this.neurons, input);
             // console.log("Round "+(epoch+1));
             // for (var j = 0; j < this.neurons.length; j++) {
             //     console.log((j+1) + " " + this.neurons[j][0] + ":" + this.neurons[j][1]);
@@ -58,7 +60,7 @@ class Self_Organizing_Map {
         // for (var j = 0; j < input.length; j++) {
         //     console.log((j+1) + " " + input[j][0] + ":" + input[j][1]);
         // }
-        plotter.update(this.neurons, input);
+        //plotter.update(this.neurons, input);
     }
 
     find_winner_pos(output_signals) {
@@ -116,19 +118,23 @@ class Self_Organizing_Map {
         // regulate learning by learning formula: Wij = Wij + f*(Pj-Wij)
         const n_x = this.neurons[pos][0];
         const n_y = this.neurons[pos][1];
-        var trained_x = n_x + this.learning_rate * learning_factor * (input_element[0] - n_x);
-        var trained_y = n_y + this.learning_rate * learning_factor * (input_element[1] - n_y);
+        var trained_x = n_x + this.current_learning_rate * learning_factor * (input_element[0] - n_x);
+        var trained_y = n_y + this.current_learning_rate * learning_factor * (input_element[1] - n_y);
         this.neurons[pos] = [trained_x, trained_y];
         // console.log((pos)+" n_x: "+n_x+ " trianed_x: " + trained_x + " diff: "+ (n_x-trained_x));
         // console.log((pos)+" n_y: "+n_y+ " trianed_y: " + trained_y + " diff: "+ (n_y-trained_y));
     }
 
     adjust_radius() {
-        this.current_radius = parseInt(Math.round(this.radius * Math.pow(0.9, this.current_epoch)));
+        if (this.radius_exp_decay) {
+            this.current_radius = parseInt(Math.round(this.radius * Math.pow(0.9, this.current_epoch)));
+        }
     }
 
     adjust_learning_rate() {
-        this.current_learning_rate = this.learning_rate * Math.pow(0.95, this.current_epoch);
+        if (this.learning_exp_decay) {
+            this.current_learning_rate = this.learning_rate * Math.pow(0.95, this.current_epoch);
+        }
     }
 
     get_neurons() {
