@@ -29,9 +29,11 @@ class Self_Organizing_Map {
 
     train_neurons(input) {
         var plotter = new plot.Plot(this.neurons, input);
+        // console.log("neurons");
         // for (var j = 0; j < this.neurons.length; j++) {
         //     console.log((j+1) + " " + this.neurons[j][0] + ":" + this.neurons[j][1]);
         // }
+        // console.log("input");
         // for (var j = 0; j < input.length; j++) {
         //     console.log((j+1) + " " + input[j][0] + ":" + input[j][1]);
         // }
@@ -48,9 +50,11 @@ class Self_Organizing_Map {
             //     console.log((j+1) + " " + this.neurons[j][0] + ":" + this.neurons[j][1]);
             // }
         }
-        for (var j = 0; j < this.neurons.length; j++) {
-            console.log((j+1) + " " + this.neurons[j][0] + ":" + this.neurons[j][1]);
-        }
+        // console.log("neurons");
+        // for (var j = 0; j < this.neurons.length; j++) {
+        //     console.log((j+1) + " " + this.neurons[j][0] + ":" + this.neurons[j][1]);
+        // }
+        // console.log("input");
         // for (var j = 0; j < input.length; j++) {
         //     console.log((j+1) + " " + input[j][0] + ":" + input[j][1]);
         // }
@@ -64,6 +68,7 @@ class Self_Organizing_Map {
                 index = i;
             }
         }
+        // console.log("index"+index);
         return index;
     }
 
@@ -72,6 +77,11 @@ class Self_Organizing_Map {
         for(i = 0; i < this.number_of_neurons; i++) {
             output.push(this.dist(input_element, this.neurons[i]));
         }
+        // console.log("output");
+        // for (var i=0; i < output.length; i++) {
+        //     console.log((i+1)+" "+output[i]);
+        // }
+        
         return output;
     }
 
@@ -89,12 +99,17 @@ class Self_Organizing_Map {
             var mod_i = (i+this.number_of_neurons)%this.number_of_neurons
             neurons_pos.push(mod_i);
         }
+        // console.log("neurons_pos");
+        // for (var i=0; i < neurons_pos.length; i++) {
+        //     console.log((i+1)+" "+neurons_pos[i]);
+        // }
         for(var pos=0; pos < neurons_pos.length; pos++) {
             this.train_neuron(neurons_pos[pos], input_element, 1.0);
-            // for (var j = 0; j < this.neurons.length; j++) {
-            //     console.log(pos + " " + (j+1) + " " + this.neurons[j][0] + ":" + this.neurons[j][1]);
-            // }
-        } 
+        }
+        // for (var j = 0; j < this.neurons.length; j++) {
+        //     console.log(pos + " " + (j+1) + " " + this.neurons[j][0] + ":" + this.neurons[j][1]);
+        // }
+        // throw new Error("Stop");
     }
 
     train_neuron(pos, input_element, learning_factor) {
@@ -104,9 +119,8 @@ class Self_Organizing_Map {
         var trained_x = n_x + this.learning_rate * learning_factor * (input_element[0] - n_x);
         var trained_y = n_y + this.learning_rate * learning_factor * (input_element[1] - n_y);
         this.neurons[pos] = [trained_x, trained_y];
-        // for (var i=0; i < this.neurons.length; i++) {
-        //     console.log((i+1)+" "+this.neurons[i][0]+ ":" + this.neurons[i][1]);
-        // }
+        // console.log((pos)+" n_x: "+n_x+ " trianed_x: " + trained_x + " diff: "+ (n_x-trained_x));
+        // console.log((pos)+" n_y: "+n_y+ " trianed_y: " + trained_y + " diff: "+ (n_y-trained_y));
     }
 
     adjust_radius() {
