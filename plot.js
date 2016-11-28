@@ -3,7 +3,7 @@ var normalizer = require("./normalize.js");
 
 class Plot {
     constructor(nodes, cities) {
-        this.svg = d3.select("body").append("svg").attr("width", 1410).attr("height", 710)
+        this.svg = d3.select("body").append("svg").attr("width", 1415).attr("height", 700)
         .style("border", "1px solid grey");
         this.width = this.svg.attr("width");
         this.height = this.svg.attr("height");
@@ -19,7 +19,6 @@ class Plot {
         //     console.log((j+1) + " " + parseInt(this.nodes[j][0]) + ":" + parseInt(this.nodes[j][1]));
         // }
 
-
         for(var pos = 0; pos < this.cities.length; pos++) {
             this.svg.append("circle")
             .attr("id", "city"+pos)
@@ -32,6 +31,7 @@ class Plot {
             //console.log(parseInt(this.correct_pos_x(parseFloat(this.cities[pos][0]))));
             //console.log(parseInt(this.correct_pos_y(parseFloat(this.cities[pos][1]))));
         }
+
         for (var pos = 0; pos < this.nodes.length; pos++) {
             this.svg.append("line")
                 .attr("id","line"+pos)
@@ -42,17 +42,28 @@ class Plot {
                 .style("stroke", "rgba(0,0,0,0.5)");
         }
 
-        for(var pos = 0; pos < this.nodes.length; pos++) {
-            this.svg.append("circle")
-            .attr("id", "node"+pos)
-            .attr("cx", parseInt(this.nodes[pos][0]))
-            .attr("cy", parseInt(this.nodes[pos][1]))
-            .attr("r", 5)
-            .style("fill", "rgba(0,128,0,0.5)");
-            // console.log(this.nodes[pos][1])
-            //console.log(parseInt(this.correct_pos_x(parseFloat(this.nodes[pos][0]))));
-            //console.log(parseInt(this.correct_pos_x(parseFloat(this.nodes[pos][1]))));
-        }
+        // for(var pos = 0; pos < this.nodes.length; pos++) {
+        //     this.svg.append("circle")
+        //     .attr("id", "node"+pos)
+        //     .attr("cx", parseInt(this.nodes[pos][0]))
+        //     .attr("cy", parseInt(this.nodes[pos][1]))
+        //     .attr("r", 5)
+        //     .style("fill", "rgba(0,128,0,0.5)");
+        //     // console.log(this.nodes[pos][1])
+        //     //console.log(parseInt(this.correct_pos_x(parseFloat(this.nodes[pos][0]))));
+        //     //console.log(parseInt(this.correct_pos_x(parseFloat(this.nodes[pos][1]))));
+        // }
+
+        this.svg.selectAll("circle")
+            .attr("class", "nodes")
+            .data(this.nodes)
+            .enter()
+                .append("circle")
+                .attr("r", 5)
+                .attr("cx", function (d) { return d[0]; })
+                .attr("cy", function (d) { return d[1]; })
+                .attr("fill", "blue")
+        //throw new Error("Stop");
     }
 
 
@@ -64,7 +75,7 @@ class Plot {
     //     return Math.pow(pos,8)*450;
     // }
 
-    update(nodes, cities) {
+    update(nodes, cities, current_epoch) {
         // console.log("nodes before");
         // for (var i=0; i < nodes.length; i++) {
         //     console.log((i+1)+" "+nodes[i][0]+ ":" + nodes[i][1]);
@@ -73,9 +84,9 @@ class Plot {
         // for (var i=0; i < cities.length; i++) {
         //     console.log((i+1)+" "+cities[i][0]+ ":" + cities[i][1]);
         // }
-
-        nodes = this.get_scaled(nodes, this.width, this.height);
-        cities = this.get_scaled(cities, this.width, this.height);
+        console.log("enter "+current_epoch);
+        this.nodes = this.get_scaled(nodes, this.width, this.height);
+        this.cities = this.get_scaled(cities, this.width, this.height);
 
         // console.log("nodes after");
         // for (var i=0; i < this.nodes.length; i++) {
@@ -86,36 +97,44 @@ class Plot {
         //     console.log((i+1)+" "+this.cities[i][0]+ ":" + this.cities[i][1]);
         // }
         
-        for(var pos = 0; pos < cities.length; pos++) {
+        for(var pos = 0; pos < this.cities.length; pos++) {
             this.svg.select("#city"+pos)
-            .attr("cx", parseInt(cities[pos][0]))
-            .attr("cy", parseInt(cities[pos][1]))
+            .attr("cx", parseInt(this.cities[pos][0]))
+            .attr("cy", parseInt(this.cities[pos][1]))
             .attr("r", 10)
             .style("fill", "red")
-            .style("border", "1px solod black");
+            .style("stroke", "black");
             
             //console.log(parseInt(this.correct_pos_x(parseFloat(this.cities[pos][0]))));
             //console.log(parseInt(this.correct_pos_y(parseFloat(this.cities[pos][1]))));
         }
-        for (var pos = 0; pos < nodes.length; pos++) {
+        for (var pos = 0; pos < this.nodes.length; pos++) {
             this.svg.select("#line"+pos)
-                .attr("x1",parseInt(nodes[pos][0]))
-                .attr("x2",parseInt(nodes[(pos+1)%nodes.length][0]))
-                .attr("y1",parseInt(nodes[pos][1]))
-                .attr("y2",parseInt(nodes[(pos+1)%nodes.length][1]))
+                .attr("x1",parseInt(this.nodes[pos][0]))
+                .attr("x2",parseInt(this.nodes[(pos+1)%nodes.length][0]))
+                .attr("y1",parseInt(this.nodes[pos][1]))
+                .attr("y2",parseInt(this.nodes[(pos+1)%nodes.length][1]))
                 .style("stroke", "rgba(0,0,0,0.5)");
         }
 
-        for(var pos = 0; pos < nodes.length; pos++) {
-            this.svg.select("#node"+pos)
-            .attr("cx", parseInt(nodes[pos][0]))
-            .attr("cy", parseInt(nodes[pos][1]))
-            .attr("r", 5)
-            .style("fill", "rgba(0,128,0,0.5)");
-            // console.log(this.nodes[pos][1])
-            //console.log(parseInt(this.correct_pos_x(parseFloat(this.nodes[pos][0]))));
-            //console.log(parseInt(this.correct_pos_x(parseFloat(this.nodes[pos][1]))));
-        }
+        // for(var pos = 0; pos < this.nodes.length; pos++) {
+        //     this.svg.select("#node"+pos)
+        //     .attr("cx", parseInt(this.nodes[pos][0]))
+        //     .attr("cy", parseInt(this.nodes[pos][1]))
+        //     .attr("r", 5)
+        //     .style("fill", "rgba(0,128,0,0.5)");
+        //     // console.log(this.nodes[pos][1])
+        //     //console.log(parseInt(this.correct_pos_x(parseFloat(this.nodes[pos][0]))));
+        //     //console.log(parseInt(this.correct_pos_x(parseFloat(this.nodes[pos][1]))));
+        // }
+
+        this.svg
+            .selectAll(".nodes")
+            .data(this.nodes)
+            .attr("cx", function (d) { return d[0]; })
+            .attr("cy", function (d) { return d[1]; });
+
+        console.log("exit "+current_epoch);
     }
 
     get_scaled(nodes, width, height) {

@@ -16,7 +16,7 @@ console.log("Normalized");
 //     console.log((i+1)+" "+normalized_cities[i][0]+ ":" + normalized_cities[i][1]);
 // }
 
-const self_organizing_map = new som.Self_Organizing_Map(normalized_cities.length*2, 0.65, 200, true, true);
+const self_organizing_map = new som.Self_Organizing_Map(normalized_cities.length*2, 0.65, 100, true, true);
 //console.log(self_organizing_map);
 self_organizing_map.train_neurons(normalized_cities);
 // const neurons = self_organizing_map.get_neurons();

@@ -15,6 +15,7 @@ class Self_Organizing_Map {
         // learning rate
         this.learning_rate = learning_rate;
         this.learning_exp_decay = learning_exp_decay;
+        this.current_learning_rate = this.learning_rate;
 
         // epochs
         this.epochs = epochs;
@@ -43,10 +44,13 @@ class Self_Organizing_Map {
                 var winning_neuron_pos = this.find_winner_pos(output_signals);
                 this.update_neurons(winning_neuron_pos, input[element_pos]);
             }
-            this.current_epoch += 1;
             this.adjust_radius();
             this.adjust_learning_rate();
-            // plotter.update(this.neurons, input);
+            console.log("Epoch: "+this.current_epoch);
+            plotter.update(this.neurons, input, this.current_epoch);
+            this.current_epoch += 1;
+            window.setTimeout(function(){return 0;},5000);
+
             // console.log("Round "+(epoch+1));
             // for (var j = 0; j < this.neurons.length; j++) {
             //     console.log((j+1) + " " + this.neurons[j][0] + ":" + this.neurons[j][1]);
@@ -120,14 +124,18 @@ class Self_Organizing_Map {
         const n_y = this.neurons[pos][1];
         var trained_x = n_x + this.current_learning_rate * learning_factor * (input_element[0] - n_x);
         var trained_y = n_y + this.current_learning_rate * learning_factor * (input_element[1] - n_y);
-        this.neurons[pos] = [trained_x, trained_y];
-        // console.log((pos)+" n_x: "+n_x+ " trianed_x: " + trained_x + " diff: "+ (n_x-trained_x));
-        // console.log((pos)+" n_y: "+n_y+ " trianed_y: " + trained_y + " diff: "+ (n_y-trained_y));
+        this.neurons[pos][0] = trained_x;
+        this.neurons[pos][1] = trained_y;
+        // console.log("input_x "+input_element[0]);
+        // console.log("input_y "+input_element[1]);
+        // console.log((pos)+" n_x: "+n_x+ " trained_x: " + trained_x + " diff: "+ (n_x-trained_x));
+        // console.log((pos)+" n_y: "+n_y+ " trained_y: " + trained_y + " diff: "+ (n_y-trained_y));
+        //throw new Exeption("Stop");
     }
 
     adjust_radius() {
         if (this.radius_exp_decay) {
-            this.current_radius = parseInt(Math.round(this.radius * Math.pow(0.9, this.current_epoch)));
+            this.current_radius = parseInt(Math.round(this.radius * Math.pow(0.95, this.current_epoch)));
         }
     }
 
