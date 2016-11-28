@@ -42,28 +42,28 @@ class Plot {
                 .style("stroke", "rgba(0,0,0,0.5)");
         }
 
-        // for(var pos = 0; pos < this.nodes.length; pos++) {
-        //     this.svg.append("circle")
-        //     .attr("id", "node"+pos)
-        //     .attr("cx", parseInt(this.nodes[pos][0]))
-        //     .attr("cy", parseInt(this.nodes[pos][1]))
-        //     .attr("r", 5)
-        //     .style("fill", "rgba(0,128,0,0.5)");
-        //     // console.log(this.nodes[pos][1])
-        //     //console.log(parseInt(this.correct_pos_x(parseFloat(this.nodes[pos][0]))));
-        //     //console.log(parseInt(this.correct_pos_x(parseFloat(this.nodes[pos][1]))));
-        // }
+        for(var pos = 0; pos < this.nodes.length; pos++) {
+            this.svg.append("circle")
+            .attr("id", "node"+pos)
+            .attr("cx", parseInt(this.nodes[pos][0]))
+            .attr("cy", parseInt(this.nodes[pos][1]))
+            .attr("r", 5)
+            .style("fill", "rgba(0,128,0,0.5)");
+            // console.log(this.nodes[pos][1])
+            //console.log(parseInt(this.correct_pos_x(parseFloat(this.nodes[pos][0]))));
+            //console.log(parseInt(this.correct_pos_x(parseFloat(this.nodes[pos][1]))));
+        }
 
-        this.svg.selectAll("circle")
-            .attr("class", "nodes")
-            .data(this.nodes)
-            .enter()
-                .append("circle")
-                .attr("r", 5)
-                .attr("cx", function (d) { return d[0]; })
-                .attr("cy", function (d) { return d[1]; })
-                .attr("fill", "blue")
-        //throw new Error("Stop");
+        // this.svg.selectAll("circle")
+        //     .attr("class", "nodes")
+        //     .data(this.nodes)
+        //     .enter()
+        //         .append("circle")
+        //         .attr("r", 5)
+        //         .attr("cx", function (d) { return d[0]; })
+        //         .attr("cy", function (d) { return d[1]; })
+        //         .attr("fill", "blue")
+        // //throw new Error("Stop");
     }
 
 
@@ -84,6 +84,7 @@ class Plot {
         // for (var i=0; i < cities.length; i++) {
         //     console.log((i+1)+" "+cities[i][0]+ ":" + cities[i][1]);
         // }
+        
         console.log("enter "+current_epoch);
         this.nodes = this.get_scaled(nodes, this.width, this.height);
         this.cities = this.get_scaled(cities, this.width, this.height);
@@ -117,22 +118,22 @@ class Plot {
                 .style("stroke", "rgba(0,0,0,0.5)");
         }
 
-        // for(var pos = 0; pos < this.nodes.length; pos++) {
-        //     this.svg.select("#node"+pos)
-        //     .attr("cx", parseInt(this.nodes[pos][0]))
-        //     .attr("cy", parseInt(this.nodes[pos][1]))
-        //     .attr("r", 5)
-        //     .style("fill", "rgba(0,128,0,0.5)");
-        //     // console.log(this.nodes[pos][1])
-        //     //console.log(parseInt(this.correct_pos_x(parseFloat(this.nodes[pos][0]))));
-        //     //console.log(parseInt(this.correct_pos_x(parseFloat(this.nodes[pos][1]))));
-        // }
+        for(var pos = 0; pos < this.nodes.length; pos++) {
+            this.svg.select("#node"+pos)
+            .attr("cx", parseInt(this.nodes[pos][0]))
+            .attr("cy", parseInt(this.nodes[pos][1]))
+            .attr("r", 5)
+            .style("fill", "rgba(0,128,0,0.5)");
+            // console.log(this.nodes[pos][1])
+            //console.log(parseInt(this.correct_pos_x(parseFloat(this.nodes[pos][0]))));
+            //console.log(parseInt(this.correct_pos_x(parseFloat(this.nodes[pos][1]))));
+        }
 
-        this.svg
-            .selectAll(".nodes")
-            .data(this.nodes)
-            .attr("cx", function (d) { return d[0]; })
-            .attr("cy", function (d) { return d[1]; });
+        // this.svg
+        //     .selectAll(".nodes")
+        //     .data(this.nodes)
+        //     .attr("cx", function (d) { return d[0]; })
+        //     .attr("cy", function (d) { return d[1]; });
 
         console.log("exit "+current_epoch);
     }
