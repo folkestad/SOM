@@ -45,6 +45,7 @@ class Plot {
 
         lines
             .transition()
+                .duration(3000)
             .attr("x1", function(d) { return d[0] })
             .attr("x2", function(d, i) { return nodes_data[(i+1)%nodes_data.length][0] })
             .attr("y1", function(d) { return d[1] })
@@ -67,6 +68,7 @@ class Plot {
         
         node_circles
             .transition()
+                .duration(3000)
             .attr("cx", function(d) { return d[0] })
             .attr("cy", function(d) { return d[1] });
 
