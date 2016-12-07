@@ -1,4 +1,4 @@
-var plot = require("./plot.js");
+var plot = require("./plot2.js");
 
 class Self_Organizing_Map {
 

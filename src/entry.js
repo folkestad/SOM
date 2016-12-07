@@ -1,7 +1,7 @@
 var data = require("./data_parser.js");
 var normalizer = require("./normalize.js");
 var som = require("./self_organizing_map.js");
-var plot = require("./plot.js");
+var plot = require("./plot2.js");
 
 
 var cities = data.get_data();
