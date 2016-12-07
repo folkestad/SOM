@@ -1,7 +1,6 @@
 var data = require("./data_parser.js");
 var normalizer = require("./normalize.js");
 var som = require("./self_organizing_map.js");
-var plot = require("./plot2.js");
 
 
 var cities = data.get_data();
@@ -16,7 +15,7 @@ console.log("Normalized");
 //     console.log((i+1)+" "+normalized_cities[i][0]+ ":" + normalized_cities[i][1]);
 // }
 
-const self_organizing_map = new som.Self_Organizing_Map(normalized_cities.length*2, 0.65, 100, true, true);
+const self_organizing_map = new som.Self_Organizing_Map(normalized_cities.length*2, 0.65, 300, true, true);
 //console.log(self_organizing_map);
 self_organizing_map.train_neurons(normalized_cities);
 // const neurons = self_organizing_map.get_neurons();

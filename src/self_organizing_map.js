@@ -47,9 +47,10 @@ class Self_Organizing_Map {
             this.adjust_radius();
             this.adjust_learning_rate();
             console.log("Epoch: "+this.current_epoch);
-            plotter.update(this.neurons, input, this.current_epoch);
+            if(epoch % 50 == 0) {
+                plotter.update(this.neurons, input, this.current_epoch);
+            }
             this.current_epoch += 1;
-            window.setTimeout(function(){return 0;},5000);
 
             // console.log("Round "+(epoch+1));
             // for (var j = 0; j < this.neurons.length; j++) {

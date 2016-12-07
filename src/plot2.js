@@ -21,7 +21,7 @@ class Plot {
         var cities_data = this.get_scaled(cities, this.width, this.height);
 
         // ====== CITIES ======
-        var city_circles = this.svg.selectAll("city")
+        var city_circles = this.svg.selectAll(".city")
             .data(cities_data);
 
         city_circles
@@ -40,10 +40,11 @@ class Plot {
         city_circles.exit().remove();
 
         // ====== LINES ======
-        var lines = this.svg.selectAll("path")
+        var lines = this.svg.selectAll(".path")
             .data(nodes_data);
 
         lines
+            .transition()
             .attr("x1", function(d) { return d[0] })
             .attr("x2", function(d, i) { return nodes_data[(i+1)%nodes_data.length][0] })
             .attr("y1", function(d) { return d[1] })
@@ -61,10 +62,11 @@ class Plot {
         lines.exit().remove();
 
         // ====== NODES ======
-        var node_circles = this.svg.selectAll("node")
+        var node_circles = this.svg.selectAll(".node")
             .data(nodes_data);
         
         node_circles
+            .transition()
             .attr("cx", function(d) { return d[0] })
             .attr("cy", function(d) { return d[1] });
 
