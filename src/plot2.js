@@ -3,22 +3,32 @@ var normalizer = require("./normalize.js");
 
 class Plot {
     constructor(nodes, cities) {
+        this.svg = d3.select("body").append("svg")
+            .attr("width", 1415)
+            .attr("height", 700)
+            .style("border", "1px solid grey");
+
+        this.width = this.svg.attr("width");
+        this.height = this.svg.attr("height");
+
         this.update(nodes, cities, 0);
     }
 
     update(nodes, cities, current_epoch) {
         console.log("enter "+current_epoch);
-        var svg = d3.select("body").append("svg").attr("width", 1415).attr("height", 700)
-        .style("border", "1px solid grey");
+        
+        var nodes_data = this.get_scaled(nodes, this.width, this.height);
+        var cities_data = this.get_scaled(cities, this.width, this.height);
 
-        var width = svg.attr("width");
-        var height = svg.attr("height");
+        // ====== CITIES ======
+        var city_circles = this.svg.selectAll("city")
+            .data(cities_data);
 
-        var nodes_data = this.get_scaled(nodes, width, height);
-        var cities_data = this.get_scaled(cities, width, height);
+        city_circles
+            .attr("cx", function(d) { return d[0] })
+            .attr("cy", function(d) { return d[1] });
 
-        var city_circles = svg.selectAll("city")
-            .data(cities_data)
+        city_circles
             .enter().append("circle")
                 .attr("class", "city")
                 .attr("cx", function(d) { return d[0] })
@@ -26,9 +36,20 @@ class Plot {
                 .attr("r", 10)
                 .style("fill", "red")
                 .style("stroke", "black");
+        
+        city_circles.exit().remove();
 
-        var lines = svg.selectAll("path")
-            .data(nodes_data)
+        // ====== LINES ======
+        var lines = this.svg.selectAll("path")
+            .data(nodes_data);
+
+        lines
+            .attr("x1", function(d) { return d[0] })
+            .attr("x2", function(d, i) { return nodes_data[(i+1)%nodes_data.length][0] })
+            .attr("y1", function(d) { return d[1] })
+            .attr("y2", function(d, i) { return nodes_data[(i+1)%nodes_data.length][1] });
+
+        lines
             .enter().append("line")
                 .attr("class", "path")
                 .attr("x1", function(d) { return d[0] })
@@ -36,9 +57,18 @@ class Plot {
                 .attr("y1", function(d) { return d[1] })
                 .attr("y2", function(d, i) { return nodes_data[(i+1)%nodes_data.length][1] })
                 .style("stroke", "rgba(0,0,0,0.5)");
+        
+        lines.exit().remove();
 
-        var node_circles = svg.selectAll("node")
-            .data(nodes_data)
+        // ====== NODES ======
+        var node_circles = this.svg.selectAll("node")
+            .data(nodes_data);
+        
+        node_circles
+            .attr("cx", function(d) { return d[0] })
+            .attr("cy", function(d) { return d[1] });
+
+        node_circles
             .enter().append("circle")
                 .attr("class", "node")
                 .attr("cx", function(d) { return d[0] })
@@ -46,9 +76,6 @@ class Plot {
                 .attr("r", 5)
                 .style("fill", "rgba(0,128,0,0.5)");
         
-        svg.exit().remove();
-        city_circles.exit().remove();
-        lines.exit().remove();
         node_circles.exit().remove();
     }
 
