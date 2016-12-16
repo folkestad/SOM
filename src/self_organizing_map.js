@@ -1,4 +1,4 @@
-var plot = require("./plot2.js");
+var plot = require("./plot.js");
 
 class Self_Organizing_Map {
 
@@ -102,10 +102,6 @@ class Self_Organizing_Map {
         if (this.learning_exp_decay) {
             this.current_learning_rate = this.learning_rate * Math.pow(0.95, this.current_epoch);
         }
-    }
-
-    get_neurons() {
-        return this.neurons;
     }
 }
 
