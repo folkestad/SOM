@@ -10,6 +10,6 @@ for(var i = 0; i < 100; i++) {
 
 var normalized_cities = normalizer.normalize(test);
 
-const self_organizing_map = new som.Self_Organizing_Map(normalized_cities.length*2, 0.65, 100, true, true);
+const self_organizing_map = new som.Self_Organizing_Map(normalized_cities.length*2, 0.65, 150, true, true);
 self_organizing_map.train_neurons(normalized_cities);
 
