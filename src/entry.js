@@ -4,12 +4,16 @@ var som = require("./self_organizing_map.js");
 
 
 var cities = data.get_data();
+var test = [];
+for(var i = 0; i < 5; i++) {
+    test.push([Math.floor((Math.random() * 100) + 1), Math.floor((Math.random() * 100) + 1)]);
+}
 // for (var i=0; i < cities.length; i++) {
 //     console.log((i+1)+" "+cities[i][0]+ ":" + cities[i][1]);
 // }
 
 
-var normalized_cities = normalizer.normalize(cities);
+var normalized_cities = normalizer.normalize(test);
 console.log("Normalized");
 // for (var i=0; i < normalized_cities.length; i++) {
 //     console.log((i+1)+" "+normalized_cities[i][0]+ ":" + normalized_cities[i][1]);
