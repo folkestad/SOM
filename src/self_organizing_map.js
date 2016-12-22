@@ -73,7 +73,7 @@ class Self_Organizing_Map {
 
     update_neurons(winning_neuron_pos, input_element) {
         var neurons_pos = [];
-        for(var i=winning_neuron_pos-this.radius; i < winning_neuron_pos+this.radius+1; i++) {
+        for(var i=winning_neuron_pos-this.current_radius; i < winning_neuron_pos+this.current_radius+1; i++) {
             var mod_i = (i+this.number_of_neurons)%this.number_of_neurons
             neurons_pos.push(mod_i);
         }
