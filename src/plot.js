@@ -34,7 +34,7 @@ class Plot {
                 .attr("cx", function(d) { return d[0] })
                 .attr("cy", function(d) { return d[1] })
                 .attr("r", 10)
-                .style("fill", "rgba(128,0,0,0.5)");
+                .style("fill", "rgba(128,0,0,0.7)");
                 //.style("stroke", "black");
         
         //city_circles.exit().remove();
