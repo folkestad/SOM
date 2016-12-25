@@ -3,15 +3,16 @@ var normalizer = require("./normalize.js");
 
 class Plot {
     constructor(nodes, cities) {
+        
+        this.width = screen.width*0.8;
+        this.height = screen.height*0.75;
+
         this.svg = d3.select("body").append("svg")
-            .attr("width", 1415)
-            .attr("height", 700)
+            .attr("width", this.width)
+            .attr("height", this.height)
             .style("border", "1px solid grey");
-
-        this.width = this.svg.attr("width");
-        this.height = this.svg.attr("height");
-
         this.update(nodes, cities, 0);
+        
     }
 
     update(nodes, cities, current_epoch) {
