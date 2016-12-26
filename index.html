@@ -4,15 +4,16 @@
 	<title>SOM</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://d3js.org/d3.v4.js"></script>
+    
 </head>
 <body>
     <h2 style="font-family: sans-serif; margin-bottom: 0px;"> Self Organizing Map </h2>
     <h3 style="margin-bottom: 0px; margin-top: 0px; margin-left: 15px;"> 
         - An artificial neural network to solve the TSP problem 
     </h3>
-    <div id="svg_and_panel">
-        <div id="panel">
+    <div id="som_and_panel">
+        <svg id="som_svg"></svg>
+        <div id="panel_div">
             <h4>Town: </h4>
             <select>
                 <option value="djibouti">Djibouti</option>
@@ -20,6 +21,7 @@
             </select>
         </div>
     </div>
+    <script src="https://d3js.org/d3.v4.js"></script>
     <script type="text/javascript" src="bundle.js" charset="utf-8"></script>
 </body>
 </html>
