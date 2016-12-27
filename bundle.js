@@ -1,3 +1,4 @@
+var EntryPoint =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -48,16 +49,26 @@
 	var normalizer = __webpack_require__(3);
 	var som = __webpack_require__(4);
 
-	var cities = data.get_data();
-	var test = [];
-	for(var i = 0; i < 200; i++) {
-	    test.push([Math.floor((Math.random() * 100) + 1), Math.floor((Math.random() * 100) + 1)]);
+
+	function start_som(number_of_neurons, learning_rate, epochs, town) {
+	    var cities = data.get_data(town);
+	    var test = [];
+	    for(var i = 0; i < 200; i++) {
+	        test.push([Math.floor((Math.random() * 100) + 1), Math.floor((Math.random() * 100) + 1)]);
+	    }
+
+	    var normalized_cities = normalizer.normalize(cities);
+	    const self_organizing_map = new som.Self_Organizing_Map(
+	        parseInt(number_of_neurons), 
+	        parseFloat(learning_rate), 
+	        parseInt(epochs), 
+	        true, 
+	        true);
+	    self_organizing_map.train_neurons(normalized_cities);
 	}
 
-	var normalized_cities = normalizer.normalize(test);
+	module.exports = { start_som: start_som }
 
-	const self_organizing_map = new som.Self_Organizing_Map(normalized_cities.length*2, 0.65, 250, true, true);
-	self_organizing_map.train_neurons(normalized_cities);
 
 
 
@@ -67,10 +78,17 @@
 
 	
 
-	function parse_data_from_file() {
+	function parse_data_from_file(town) {
 	    var cities = [];
 	    var raw_data = __webpack_require__(2);
-	    var raw_data_array = raw_data.djibouti.split(" ");
+	    var raw_data_array = null;
+	    if (town == "djibouti") {
+	        raw_data_array = raw_data.djibouti.split(" ");
+	    } else if (town == "qatar") {
+	        raw_data_array = raw_data.qatar.split(" ");
+	    } else {
+	        return false;
+	    }
 	    for(i=0; i<raw_data_array.length; i+=3) {
 	        cities.push([parseInt(raw_data_array[i+1]), parseInt(raw_data_array[i+2])])
 	    }
@@ -166,7 +184,7 @@
 	            }
 	            this.adjust_radius();
 	            this.adjust_learning_rate();
-	            console.log("Epoch: "+this.current_epoch);
+	            //console.log("Epoch: "+this.current_epoch);
 	            if(epoch % 50 == 0) {
 	                plotter.update(this.neurons, input, this.current_epoch);
 	            }
@@ -246,19 +264,16 @@
 
 	class Plot {
 	    constructor(nodes, cities) {
-	        this.svg = d3.select("body").append("svg")
-	            .attr("width", 1415)
-	            .attr("height", 700)
-	            .style("border", "1px solid grey");
 
-	        this.width = this.svg.attr("width");
-	        this.height = this.svg.attr("height");
+	        this.svg = d3.select("#som_svg");
+	        this.width = parseFloat(this.svg.style("width"));
+	        this.height = parseFloat(this.svg.style("height"));
 
 	        this.update(nodes, cities, 0);
 	    }
 
 	    update(nodes, cities, current_epoch) {
-	        console.log("enter "+current_epoch);
+	        //console.log("enter "+current_epoch);
 	        
 	        var nodes_data = this.get_scaled(nodes, this.width, this.height);
 	        var cities_data = this.get_scaled(cities, this.width, this.height);
@@ -280,7 +295,7 @@
 	                .style("fill", "rgba(128,0,0,0.5)");
 	                //.style("stroke", "black");
 	        
-	        //city_circles.exit().remove();
+	        city_circles.exit().remove();
 
 	        // ====== LINES ======
 	        var lines = this.svg.selectAll(".path")
@@ -303,7 +318,7 @@
 	                .attr("y2", function(d, i) { return nodes_data[(i+1)%nodes_data.length][1] })
 	                .style("stroke", "rgba(0,0,0,0.5)");
 	        
-	        //lines.exit().remove();
+	        lines.exit().remove();
 
 	        // ====== NODES ======
 	        var node_circles = this.svg.selectAll(".node")
@@ -323,7 +338,7 @@
 	                .attr("r", 5)
 	                .style("fill", "rgba(0,128,0,0.5)");
 	        
-	        //node_circles.exit().remove();
+	        node_circles.exit().remove();
 	    }
 
 	    get_scaled(nodes, width, height) {

@@ -3,20 +3,16 @@ var normalizer = require("./normalize.js");
 
 class Plot {
     constructor(nodes, cities) {
-        
-        this.width = screen.width*0.8;
-        this.height = screen.height*0.75;
 
-        this.svg = d3.select("body").append("svg")
-            .attr("width", this.width)
-            .attr("height", this.height)
-            .style("border", "1px solid grey");
+        this.svg = d3.select("#som_svg");
+        this.width = parseFloat(this.svg.style("width"));
+        this.height = parseFloat(this.svg.style("height"));
+
         this.update(nodes, cities, 0);
-        
     }
 
     update(nodes, cities, current_epoch) {
-        console.log("enter "+current_epoch);
+        //console.log("enter "+current_epoch);
         
         var nodes_data = this.get_scaled(nodes, this.width, this.height);
         var cities_data = this.get_scaled(cities, this.width, this.height);
@@ -38,7 +34,7 @@ class Plot {
                 .style("fill", "rgba(128,0,0,0.5)");
                 //.style("stroke", "black");
         
-        //city_circles.exit().remove();
+        city_circles.exit().remove();
 
         // ====== LINES ======
         var lines = this.svg.selectAll(".path")
@@ -61,7 +57,7 @@ class Plot {
                 .attr("y2", function(d, i) { return nodes_data[(i+1)%nodes_data.length][1] })
                 .style("stroke", "rgba(0,0,0,0.5)");
         
-        //lines.exit().remove();
+        lines.exit().remove();
 
         // ====== NODES ======
         var node_circles = this.svg.selectAll(".node")
@@ -81,7 +77,7 @@ class Plot {
                 .attr("r", 5)
                 .style("fill", "rgba(0,128,0,0.5)");
         
-        //node_circles.exit().remove();
+        node_circles.exit().remove();
     }
 
     get_scaled(nodes, width, height) {

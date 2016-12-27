@@ -1,9 +1,71 @@
-.links line {
-  stroke: #999;
-  stroke-opacity: 0.6;
+
+h1 {
+  margin-left: 2% !important;
+  margin-bottom: 0% !important;
 }
 
-.nodes circle {
-  stroke: #fff;
-  stroke-width: 1.5px;
+h3 {
+  margin-top: 0%;
+  margin-left: 5%;
+  margin-bottom: 0%;
 }
+
+h4 {
+  margin-top: 0%;
+}
+
+body {
+  
+}
+
+.input_field {
+  margin-bottom: 4%;
+}
+
+#som_and_panel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 100%;
+  padding-top: 2%;
+}
+
+#panel_div {
+  position: relative;
+  height: fill;
+  min-width: 100px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: grey;
+  border-radius: 5px; 
+  padding: 2%;
+}
+
+#som_svg {
+  border-style: solid;
+  border-width: 1px;
+  border-color: grey;
+  border-radius: 5px;
+}
+
+#form {
+  display: flex;
+  flex-direction: column;
+}
+
+#submitbutton {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 5%;
+  margin-right: 10%;
+  margin-top: 5%;
+}
+
+@media screen and (min-width: 1000px) {
+  #som_svg {
+    width: 1100px;
+    height: 650px;
+  }
+}
+

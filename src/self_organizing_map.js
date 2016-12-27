@@ -37,7 +37,7 @@ class Self_Organizing_Map {
             }
             this.adjust_radius();
             this.adjust_learning_rate();
-            console.log("Epoch: "+this.current_epoch);
+            //console.log("Epoch: "+this.current_epoch);
             if(epoch % 50 == 0) {
                 plotter.update(this.neurons, input, this.current_epoch);
             }
