@@ -51,14 +51,13 @@ var EntryPoint =
 
 
 	function start_som(number_of_neurons, learning_rate, epochs) {
-	    console.log("yey");
 	    var cities = data.get_data();
 	    var test = [];
 	    for(var i = 0; i < 200; i++) {
 	        test.push([Math.floor((Math.random() * 100) + 1), Math.floor((Math.random() * 100) + 1)]);
 	    }
 
-	    var normalized_cities = normalizer.normalize(test);
+	    var normalized_cities = normalizer.normalize(cities);
 	    const self_organizing_map = new som.Self_Organizing_Map(
 	        parseInt(number_of_neurons), 
 	        parseFloat(learning_rate), 
@@ -67,8 +66,6 @@ var EntryPoint =
 	        true);
 	    self_organizing_map.train_neurons(normalized_cities);
 	}
-
-	//start_som(200, 0.65, 150);
 
 	module.exports = { start_som: start_som }
 
@@ -291,7 +288,7 @@ var EntryPoint =
 	                .style("fill", "rgba(128,0,0,0.5)");
 	                //.style("stroke", "black");
 	        
-	        //city_circles.exit().remove();
+	        city_circles.exit().remove();
 
 	        // ====== LINES ======
 	        var lines = this.svg.selectAll(".path")
@@ -314,7 +311,7 @@ var EntryPoint =
 	                .attr("y2", function(d, i) { return nodes_data[(i+1)%nodes_data.length][1] })
 	                .style("stroke", "rgba(0,0,0,0.5)");
 	        
-	        //lines.exit().remove();
+	        lines.exit().remove();
 
 	        // ====== NODES ======
 	        var node_circles = this.svg.selectAll(".node")
@@ -334,7 +331,7 @@ var EntryPoint =
 	                .attr("r", 5)
 	                .style("fill", "rgba(0,128,0,0.5)");
 	        
-	        //node_circles.exit().remove();
+	        node_circles.exit().remove();
 	    }
 
 	    get_scaled(nodes, width, height) {

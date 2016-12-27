@@ -40,7 +40,8 @@
                     onclick='perform_action(
                         this.form.neurons.value,
                         this.form.learningrate.value,
-                        this.form.epochs.value
+                        this.form.epochs.value,
+                        this.form.town.value
                 )'>
 
             </form>
@@ -49,8 +50,8 @@
     <script src="https://d3js.org/d3.v4.js"></script>
     <script src="./bundle.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-        function perform_action(number_of_neurons, learning_rate, epochs) {
-            EntryPoint.start_som(number_of_neurons, learning_rate, epochs);
+        function perform_action(number_of_neurons, learning_rate, epochs, town) {
+            EntryPoint.start_som(number_of_neurons, learning_rate, epochs, town);
         }
     </script>
 </body>

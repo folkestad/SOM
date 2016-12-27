@@ -3,14 +3,14 @@ var normalizer = require("./normalize.js");
 var som = require("./self_organizing_map.js");
 
 
-function start_som(number_of_neurons, learning_rate, epochs) {
-    var cities = data.get_data();
+function start_som(number_of_neurons, learning_rate, epochs, town) {
+    var cities = data.get_data(town);
     var test = [];
     for(var i = 0; i < 200; i++) {
         test.push([Math.floor((Math.random() * 100) + 1), Math.floor((Math.random() * 100) + 1)]);
     }
 
-    var normalized_cities = normalizer.normalize(test);
+    var normalized_cities = normalizer.normalize(cities);
     const self_organizing_map = new som.Self_Organizing_Map(
         parseInt(number_of_neurons), 
         parseFloat(learning_rate), 
