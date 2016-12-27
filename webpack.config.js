@@ -1,8 +1,10 @@
 module.exports = {
     entry: "./src/entry.js",
     output: {
-        path: __dirname,
-        filename: "bundle.js"
+        path: './',
+        filename: 'bundle.js',
+        libraryTarget: 'var',
+        library: 'EntryPoint'
     },
     module: {
         loaders: [

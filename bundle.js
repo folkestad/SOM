@@ -1,3 +1,4 @@
+var EntryPoint =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -48,16 +49,29 @@
 	var normalizer = __webpack_require__(3);
 	var som = __webpack_require__(4);
 
-	var cities = data.get_data();
-	var test = [];
-	for(var i = 0; i < 200; i++) {
-	    test.push([Math.floor((Math.random() * 100) + 1), Math.floor((Math.random() * 100) + 1)]);
+
+	function start_som(number_of_neurons, learning_rate, epochs) {
+	    console.log("yey");
+	    var cities = data.get_data();
+	    var test = [];
+	    for(var i = 0; i < 200; i++) {
+	        test.push([Math.floor((Math.random() * 100) + 1), Math.floor((Math.random() * 100) + 1)]);
+	    }
+
+	    var normalized_cities = normalizer.normalize(test);
+	    const self_organizing_map = new som.Self_Organizing_Map(
+	        parseInt(number_of_neurons), 
+	        parseFloat(learning_rate), 
+	        parseInt(epochs), 
+	        true, 
+	        true);
+	    self_organizing_map.train_neurons(normalized_cities);
 	}
 
-	var normalized_cities = normalizer.normalize(test);
+	//start_som(200, 0.65, 150);
 
-	const self_organizing_map = new som.Self_Organizing_Map(normalized_cities.length*2, 0.65, 250, true, true);
-	self_organizing_map.train_neurons(normalized_cities);
+	module.exports = { start_som: start_som }
+
 
 
 
@@ -166,7 +180,7 @@
 	            }
 	            this.adjust_radius();
 	            this.adjust_learning_rate();
-	            console.log("Epoch: "+this.current_epoch);
+	            //console.log("Epoch: "+this.current_epoch);
 	            if(epoch % 50 == 0) {
 	                plotter.update(this.neurons, input, this.current_epoch);
 	            }
@@ -246,19 +260,16 @@
 
 	class Plot {
 	    constructor(nodes, cities) {
-	        this.svg = d3.select("body").append("svg")
-	            .attr("width", 1415)
-	            .attr("height", 700)
-	            .style("border", "1px solid grey");
 
-	        this.width = this.svg.attr("width");
-	        this.height = this.svg.attr("height");
+	        this.svg = d3.select("#som_svg");
+	        this.width = parseFloat(this.svg.style("width"));
+	        this.height = parseFloat(this.svg.style("height"));
 
 	        this.update(nodes, cities, 0);
 	    }
 
 	    update(nodes, cities, current_epoch) {
-	        console.log("enter "+current_epoch);
+	        //console.log("enter "+current_epoch);
 	        
 	        var nodes_data = this.get_scaled(nodes, this.width, this.height);
 	        var cities_data = this.get_scaled(cities, this.width, this.height);

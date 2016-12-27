@@ -4,7 +4,6 @@
 	<title>SOM</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="styles.css">
-    
 </head>
 <body>
     <h2 style="font-family: sans-serif; margin-bottom: 0px;"> Self Organizing Map </h2>
@@ -15,21 +14,40 @@
         <svg id="som_svg"></svg>
         <div id="panel_div">
             <form>
-                Learningrate:<br>
-                <input type="text" name="learningrate" value="0.65">
-                <br>
                 Number of Neurons:<br>
-                <input type="text" name="neurons" value="200">
+                <input id="neurons" type="text" name="neurons" value="200">
+                <br>
+                Learningrate:<br>
+                <input id="learningrate" type="text" name="learningrate" value="0.65">
+                <br>
+                Number of Epochs:<br>
+                <input id="epochs" type="text" name="epochs" value="100">
                 <br>
                 Town:<br>
                 <select>
                     <option value="djibouti">Djibouti</option>
                     <option value="qatar">Qatar</option>
                 </select>
+                <br>
+                <input id="submitbutton" type="submit" value="Submit" 
+                    onclick='perform_action(
+                        this.form.neurons.value,
+                        this.form.learningrate.value,
+                        this.form.epochs.value
+                )'>
+                <br>
             </form>
         </div>
     </div>
     <script src="https://d3js.org/d3.v4.js"></script>
-    <script type="text/javascript" src="bundle.js" charset="utf-8"></script>
+    <script src="./bundle.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        function perform_action(number_of_neurons, learning_rate, epochs) {
+            console.log("hey");
+            EntryPoint.start_som(number_of_neurons, learning_rate, epochs);
+        }
+    </script>
 </body>
+<footer>
+</footer>
 </html>
