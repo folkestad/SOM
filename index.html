@@ -4,38 +4,45 @@
 	<title>SOM</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="styles.css">
+    <link 
+        rel="stylesheet" 
+        href="https://unpkg.com/purecss@0.6.1/build/pure-min.css" 
+        integrity="sha384-CCTZv2q9I9m3UOxRLaJneXrrqKwUNOzZ6NGEUMwHtShDJ+nCoiXJCAgi05KfkLGY" 
+        crossorigin="anonymous"
+    >
 </head>
 <body>
-    <h2 style="font-family: sans-serif; margin-bottom: 0px;"> Self Organizing Map </h2>
-    <h3 style="margin-bottom: 0px; margin-top: 0px; margin-left: 15px;"> 
+    <h1 style="font-family: sans-serif;"> Self Organizing Map </h1>
+    <h3> 
         - An artificial neural network to solve the TSP problem 
     </h3>
     <div id="som_and_panel">
         <svg id="som_svg"></svg>
         <div id="panel_div">
-            <form onsubmit="return false;">
-                Number of Neurons:<br>
-                <input id="neurons" type="text" name="neurons" value="200">
-                <br>
-                Learningrate:<br>
-                <input id="learningrate" type="text" name="learningrate" value="0.65">
-                <br>
-                Number of Epochs:<br>
-                <input id="epochs" type="text" name="epochs" value="100">
-                <br>
-                Town:<br>
-                <select>
+            <form id="form" class="pure-form" onsubmit="return false;">
+
+                <label for="id">Number of Neurons</label>
+                <input id="neurons" class="input_field" type="text" name="neurons" value="200">
+
+                <label for="learningrate">Learning-rate</label>
+                <input id="learningrate" class="input_field" type="text" name="learningrate" value="0.65">
+
+                <label for="epochs">Number of Epochs</label>
+                <input id="epochs" class="input_field" type="text" name="epochs" value="100">
+
+                <label for="town">Town</label>
+                <select id="town" class="input_field">
                     <option value="djibouti">Djibouti</option>
                     <option value="qatar">Qatar</option>
                 </select>
-                <br>
-                <input id="submitbutton" type="submit" value="Submit"
+
+                <input id="submitbutton" class="pure-button pure-button-primary" type="submit" value="Submit"
                     onclick='perform_action(
                         this.form.neurons.value,
                         this.form.learningrate.value,
                         this.form.epochs.value
                 )'>
-                <br>
+
             </form>
         </div>
     </div>
