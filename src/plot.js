@@ -34,7 +34,7 @@ class Plot {
                 .style("fill", "rgba(128,0,0,0.5)");
                 //.style("stroke", "black");
         
-        //city_circles.exit().remove();
+        city_circles.exit().remove();
 
         // ====== LINES ======
         var lines = this.svg.selectAll(".path")
@@ -57,7 +57,7 @@ class Plot {
                 .attr("y2", function(d, i) { return nodes_data[(i+1)%nodes_data.length][1] })
                 .style("stroke", "rgba(0,0,0,0.5)");
         
-        //lines.exit().remove();
+        lines.exit().remove();
 
         // ====== NODES ======
         var node_circles = this.svg.selectAll(".node")
@@ -77,7 +77,7 @@ class Plot {
                 .attr("r", 5)
                 .style("fill", "rgba(0,128,0,0.5)");
         
-        //node_circles.exit().remove();
+        node_circles.exit().remove();
     }
 
     get_scaled(nodes, width, height) {
