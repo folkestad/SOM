@@ -13,7 +13,7 @@
     <div id="som_and_panel">
         <svg id="som_svg"></svg>
         <div id="panel_div">
-            <form>
+            <form onsubmit="return false;">
                 Number of Neurons:<br>
                 <input id="neurons" type="text" name="neurons" value="200">
                 <br>
@@ -29,7 +29,7 @@
                     <option value="qatar">Qatar</option>
                 </select>
                 <br>
-                <input id="submitbutton" type="submit" value="Submit" 
+                <input id="submitbutton" type="submit" value="Submit"
                     onclick='perform_action(
                         this.form.neurons.value,
                         this.form.learningrate.value,
