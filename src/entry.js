@@ -4,7 +4,6 @@ var som = require("./self_organizing_map.js");
 
 
 function start_som(number_of_neurons, learning_rate, epochs) {
-    console.log("yey");
     var cities = data.get_data();
     var test = [];
     for(var i = 0; i < 200; i++) {
@@ -20,8 +19,6 @@ function start_som(number_of_neurons, learning_rate, epochs) {
         true);
     self_organizing_map.train_neurons(normalized_cities);
 }
-
-//start_som(200, 0.65, 150);
 
 module.exports = { start_som: start_som }
 
