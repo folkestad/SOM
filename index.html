@@ -30,8 +30,8 @@
                 <label for="epochs">Number of Epochs</label>
                 <input id="epochs" class="input_field" type="text" name="epochs" value="100">
 
-                <label for="town">Town</label>
-                <select id="town" class="input_field">
+                <label for="country">Country</label>
+                <select id="country" class="input_field">
                     <option value="western_sahara">Western Sahara (29)</option>
                     <option value="djibouti">Djibouti (38)</option>
                     <option value="qatar">Qatar (194)</option>
@@ -42,7 +42,7 @@
                         this.form.neurons.value,
                         this.form.learningrate.value,
                         this.form.epochs.value,
-                        this.form.town.value
+                        this.form.country.value
                 )'>
 
             </form>
@@ -51,8 +51,8 @@
     <script src="https://d3js.org/d3.v4.js"></script>
     <script src="./bundle.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-        function perform_action(number_of_neurons, learning_rate, epochs, town) {
-            EntryPoint.start_som(number_of_neurons, learning_rate, epochs, town);
+        function perform_action(number_of_neurons, learning_rate, epochs, country) {
+            EntryPoint.start_som(number_of_neurons, learning_rate, epochs, country);
         }
     </script>
 </body>

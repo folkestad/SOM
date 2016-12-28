@@ -50,8 +50,8 @@ var EntryPoint =
 	var som = __webpack_require__(4);
 
 
-	function start_som(number_of_neurons, learning_rate, epochs, town) {
-	    var cities = data.get_data(town);
+	function start_som(number_of_neurons, learning_rate, epochs, country) {
+	    var cities = data.get_data(country);
 	    var test = [];
 	    for(var i = 0; i < 200; i++) {
 	        test.push([Math.floor((Math.random() * 100) + 1), Math.floor((Math.random() * 100) + 1)]);
@@ -78,15 +78,15 @@ var EntryPoint =
 
 	
 
-	function parse_data_from_file(town) {
+	function parse_data_from_file(country) {
 	    var cities = [];
 	    var raw_data = __webpack_require__(2);
 	    var raw_data_array = null;
-	    if (town == "western_sahara") {
+	    if (country == "western_sahara") {
 	        raw_data_array = raw_data.western_sahara.split(" ");
-	    } else if (town == "djibouti") {
+	    } else if (country == "djibouti") {
 	        raw_data_array = raw_data.djibouti.split(" ");
-	    } else if (town == "qatar") {
+	    } else if (country == "qatar") {
 	        raw_data_array = raw_data.qatar.split(" ");
 	    } else {
 	        return false;

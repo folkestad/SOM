@@ -1,14 +1,14 @@
 
 
-function parse_data_from_file(town) {
+function parse_data_from_file(country) {
     var cities = [];
     var raw_data = require("./tsp_data_points.js");
     var raw_data_array = null;
-    if (town == "western_sahara") {
+    if (country == "western_sahara") {
         raw_data_array = raw_data.western_sahara.split(" ");
-    } else if (town == "djibouti") {
+    } else if (country == "djibouti") {
         raw_data_array = raw_data.djibouti.split(" ");
-    } else if (town == "qatar") {
+    } else if (country == "qatar") {
         raw_data_array = raw_data.qatar.split(" ");
     } else {
         return false;
