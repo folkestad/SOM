@@ -4,7 +4,9 @@ function parse_data_from_file(town) {
     var cities = [];
     var raw_data = require("./tsp_data_points.js");
     var raw_data_array = null;
-    if (town == "djibouti") {
+    if (town == "western_sahara") {
+        raw_data_array = raw_data.western_sahara.split(" ");
+    } else if (town == "djibouti") {
         raw_data_array = raw_data.djibouti.split(" ");
     } else if (town == "qatar") {
         raw_data_array = raw_data.qatar.split(" ");
