@@ -37,10 +37,11 @@ class Self_Organizing_Map {
             }
             this.adjust_radius();
             this.adjust_learning_rate();
-            //console.log("Epoch: "+this.current_epoch);
-            if(epoch % 50 == 0) {
+            
+            if(epoch % 50 === 0) {
                 plotter.update(this.neurons, input, this.current_epoch);
             }
+
             this.current_epoch += 1;
         }
     }
@@ -71,14 +72,19 @@ class Self_Organizing_Map {
         );
     }
 
+    calc_learning_factor(winning_neuron_pos, neuron_pos) {
+        return 1-(((winning_neuron_pos - neuron_pos)%this.current_radius)/this.current_radius);
+    }
+
     update_neurons(winning_neuron_pos, input_element) {
         var neurons_pos = [];
         for(var i=winning_neuron_pos-this.current_radius; i < winning_neuron_pos+this.current_radius+1; i++) {
-            var mod_i = (i+this.number_of_neurons)%this.number_of_neurons
+            var mod_i = (i+this.number_of_neurons)%this.number_of_neurons;
             neurons_pos.push(mod_i);
         }
         for(var pos=0; pos < neurons_pos.length; pos++) {
-            this.train_neuron(neurons_pos[pos], input_element, 1.0);
+            var learning_factor = this.calc_learning_factor(winning_neuron_pos, neurons_pos[pos]);
+            this.train_neuron(neurons_pos[pos], input_element, learning_factor);
         }
     }
 
@@ -105,4 +111,4 @@ class Self_Organizing_Map {
     }
 }
 
-module.exports = { Self_Organizing_Map: Self_Organizing_Map }
+module.exports = { Self_Organizing_Map: Self_Organizing_Map };
